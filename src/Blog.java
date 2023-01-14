@@ -1,52 +1,52 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Blog implements Publisher {
-    private List<Subscriber> subscriberList;
+public class Blog implements Subject {
+    private final List<Observer> observerList;
     protected String topic = "";
 
     protected List<String> articles;
 
     public Blog() {
-        subscriberList = new ArrayList<>();
+        observerList = new ArrayList<>();
         articles = new ArrayList<>();
     }
 
     @Override
-    public boolean addSubscriber(Subscriber subscriber) {
-        if(!subscriberList.contains(subscriber))
+    public boolean addSubscriber(Observer observer) {
+        if(!observerList.contains(observer))
         {
-            subscriberList.add(subscriber);
+            observerList.add(observer);
             return true;
         }
         else
         {
-            System.out.println(String.format("***Subscriber not added. %s is already subscribed to the %s topic.***", subscriber.getId(), topic));
+            System.out.printf("***Subscriber not added. %s is already subscribed to the %s topic.***%n", observer.getId(), topic);
             return false;
         }
     }
 
     @Override
-    public void removeSubscriber(Subscriber subscriber) {
-        subscriberList.remove(subscriber);
+    public void removeSubscriber(Observer observer) {
+        observerList.remove(observer);
     }
 
     public void notifySubscribers(String articleTitle) {
-        if(!subscriberList.isEmpty()){
-            for (Subscriber subscriber : subscriberList) {
-                System.out.println(String.format("--Notification of new %s article titled \"%s\" has been sent to reader, %s." , topic, articleTitle, subscriber.getId()));
-                subscriber.update(this, articleTitle);
+        if(!observerList.isEmpty()){
+            for (Observer observer : observerList) {
+                System.out.printf("--Notification of new %s article titled \"%s\" has been sent to reader, %s.%n", topic, articleTitle, observer.getId());
+                observer.update(this, articleTitle);
             }
         }
         else
         {
-            System.out.println(String.format("***There are no subscribers to the %s blog to notify.***" , topic));
+            System.out.printf("***There are no subscribers to the %s blog to notify.***%n", topic);
         }
 
     }
 
     public void publishNewArticle(String articleTitle) {
-        System.out.println(String.format("[New %s article published!]", topic));
+        System.out.printf("[New %s article published!]%n", topic);
         createNewArticle(articleTitle);
         notifySubscribers(articleTitle);
     }

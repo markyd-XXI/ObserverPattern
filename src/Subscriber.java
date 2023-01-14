@@ -1,11 +1,30 @@
-public interface Subscriber {
-    void subscribe(Publisher publisher);
+public class Subscriber implements Observer {
 
-    void unsubscribe(Publisher publisher);
+    private String id;
 
-    void update(Publisher topic, String articleTitle);
+    public void subscribe(Subject subject) {
+        if(subject.addSubscriber(this)){
+            System.out.printf("%s is now subscribed to the %s blog%n", id, subject.getTopic());
+        }
+    }
 
-    void setId(String id);
+    public void unsubscribe(Subject subject) {
+        subject.removeSubscriber(this);
+        System.out.printf("%s is now un-subscribed from the %s blog%n", id, subject.getTopic());
+    }
 
-    String getId();
+    public void update(Subject subject, String articleTitle) {
+        System.out.printf("----Notification of new %s article titled \"%s\" has been received by reader, %s.%n", subject.getTopic(), articleTitle, id);
+        String latestArticle = subject.getLatestArticle();
+        System.out.printf("----%s has successfully retrieved the latest %s article titled \"%s\"%n", id, subject.getTopic(), latestArticle);
+        System.out.println();
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return this.id;
+    }
 }

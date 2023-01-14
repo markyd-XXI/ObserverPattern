@@ -1,8 +1,8 @@
-public interface Publisher {
+public interface Subject {
 
-    boolean addSubscriber(Subscriber subscriber);
+    boolean addSubscriber(Observer observer);
 
-    void removeSubscriber(Subscriber subscriber);
+    void removeSubscriber(Observer observer);
 
     void notifySubscribers(String articleTitle);
 
