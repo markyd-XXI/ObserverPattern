@@ -1,3 +1,5 @@
+import java.util.List;
+
 public interface Subject {
 
     boolean addSubscriber(Observer observer);
@@ -13,4 +15,6 @@ public interface Subject {
     String getLatestArticle();
 
     String getTopic();
+
+    List<Observer> getObserverList();
 }

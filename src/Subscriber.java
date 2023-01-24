@@ -1,5 +1,16 @@
 public class Subscriber implements Observer {
 
+    /**
+     * The overloaded Subscriber constructors are implementations of compile time polymorphism.
+     */
+    public Subscriber() {}
+
+    public Subscriber(Subject subject, String id)
+    {
+        this.id = id;
+        subscribe(subject);
+    }
+
     private String id;
 
     public void subscribe(Subject subject) {

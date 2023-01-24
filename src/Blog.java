@@ -64,4 +64,8 @@ public class Blog implements Subject {
     public String getTopic() {
         return topic;
     }
+
+    public List<Observer> getObserverList() {
+        return observerList;
+    }
 }
